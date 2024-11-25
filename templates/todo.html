@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form method="POST" class="task-form">
+            <input type="text" name="task" placeholder="Enter a new task" required>
+            <button type="submit" class="btn add-btn">Add Task</button>
+        </form>
+        
+        <ul class="todo-list">
+            {% for todo in todos %}
+            <li class="todo-item {% if todo.status == 'Done' %}done{% endif %}">
+                <span class="task">{{ todo.task }}</span>
+                <span class="status">[{{ todo.status }}]</span>
+                <div class="actions">
+                    <a href="/update/{{ todo.id }}" class="btn update-btn">Mark as Done/Pending</a>
+                    <a href="/delete/{{ todo.id }}" class="btn delete-btn">Delete</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="/logout" class="btn logout-btn">Logout</a>
+    </div>
+</body>
+</html>
